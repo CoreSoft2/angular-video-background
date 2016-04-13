@@ -84,3 +84,6 @@ there are a few other configurable options you may also want to use:
 ### License
   MIT
 
+#### Ref
+http://stackoverflow.com/questions/33571027/how-to-play-local-video-in-ionic-app-video-tag-is-not-working
+
