@@ -86,4 +86,6 @@ there are a few other configurable options you may also want to use:
 
 #### Ref
 http://stackoverflow.com/questions/33571027/how-to-play-local-video-in-ionic-app-video-tag-is-not-working
+https://github.com/santoshshinde2012/FullscreenVideo
+
 
