@@ -1,5 +1,5 @@
-angular-video-background
-========================
+angular-video-background in a div
+=================================
 
 > html5 fullscreen video background in angular
 
