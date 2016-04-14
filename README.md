@@ -89,4 +89,7 @@ http://stackoverflow.com/questions/33571027/how-to-play-local-video-in-ionic-app
 https://github.com/santoshshinde2012/FullscreenVideo
 http://jsfiddle.net/P2NpU/31/
 
+http://www.codeproject.com/Articles/113831/An-Advanced-Splash-Screen-for-Android-App
+
+
 
