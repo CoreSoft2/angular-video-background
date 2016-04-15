@@ -97,3 +97,6 @@ http://www.codeproject.com/Articles/113831/An-Advanced-Splash-Screen-for-Android
 http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/
 
 
+https://www.kirupa.com/html5/sprite_sheet_animations_using_only_css.htm
+
+
