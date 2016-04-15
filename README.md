@@ -99,4 +99,7 @@ http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-anim
 
 https://www.kirupa.com/html5/sprite_sheet_animations_using_only_css.htm
 
+http://blog.teamtreehouse.com/css-sprite-sheet-animations-steps
+
+
 
