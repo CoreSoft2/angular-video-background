@@ -220,3 +220,129 @@ with map--->
   </body>
 </html>
 
+updated
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+	
+    <script>
+
+      function initMap() {
+		
+        var myLatLng = {lat: -40.363, lng: 53.044};
+		var geocoder = new google.maps.Geocoder();
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 3
+        });
+
+		var marker = new google.maps.Marker({
+          position: geocodeAddress(geocoder, 'CA 098722'),
+          map: map,
+          title: 'Hello World!'
+        });
+      }
+	  
+	function geocodeAddress(geocoder, address) {
+	console.log("Getting lat lng for : " + address);
+	  geocoder.geocode({'address': address}, function(results, status) {
+		console.log("Getting lat lng status : " + results[0].geometry.location);
+		if (status === google.maps.GeocoderStatus.OK) {
+		  var pos = results[0].geometry.location;
+		  console.log("Getting lat: " + pos.lat());
+		} else {
+		  return status;
+		}
+	  });
+	}
+	
+	
+	function handleFiles(files) {
+      // Check for the various File API support.
+      if (window.FileReader) {
+          // FileReader are supported.
+          getAsText(files[0]);
+      } else {
+          alert('FileReader are not supported in this browser.');
+      }
+    }
+
+    function getAsText(fileToRead) {
+      var reader = new FileReader();
+      // Read file into memory as UTF-8      
+      reader.readAsText(fileToRead);
+      // Handle errors load
+      reader.onload = loadHandler;
+      reader.onerror = errorHandler;
+    }
+
+    function loadHandler(event) {
+      var csv = event.target.result;
+      processData(csv);
+    }
+
+    function processData(csv) {
+        var allTextLines = csv.split(/\r\n|\n/);
+        var lines = [];
+		var geocoder = new google.maps.Geocoder();
+
+        for (var i=0; i<allTextLines.length; i++) {
+            var data = allTextLines[i].split(';');
+                var tarr = [];
+				for (var j=0; j<data.length; j++) {
+                    tarr.push(data[j]);
+                }
+                lines.push(tarr);
+        }
+      console.log(lines);
+	  drawOutput(lines);
+    }
+
+    function errorHandler(evt) {
+      if(evt.target.error.name == "NotReadableError") {
+          alert("Canno't read file !");
+      }
+    }
+	
+	function drawOutput(lines){
+		var geocoder = new google.maps.Geocoder();
+		//Clear previous data
+		document.getElementById("output").innerHTML = "";
+		var table = document.createElement("table");
+		for (var i = 0; i < lines.length; i++) {
+			var row = table.insertRow(-1);
+			for (var j = 0; j < lines[i].length; j++) {
+				var firstNameCell = row.insertCell(-1);
+				var pos = geocodeAddress(geocoder, lines[i][j] );
+				console.log("lat lng got: " +  pos);
+				firstNameCell.appendChild(document.createTextNode(lines[i][j]));
+			}
+		}
+		document.getElementById("output").appendChild(table);
+	}
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?senser=false&key=AIzaSyAfk50zZb6GYNSpUv28U8iFooQy8VYh4Tk"></script>
+	<!--script type="text/javascript" src="readcsv.js"></script-->
+	
+	 <input type="file" id="csvFileInput" onchange="handleFiles(this.files)"
+          accept=".csv">
+	 <div id="output">
+    </div>
+  </body>
+</html>
+
