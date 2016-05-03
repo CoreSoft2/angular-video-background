@@ -101,5 +101,122 @@ https://www.kirupa.com/html5/sprite_sheet_animations_using_only_css.htm
 
 http://blog.teamtreehouse.com/css-sprite-sheet-animations-steps
 
+---------------------
+csv
+https://github.com/MounirMesselmeni/html-fileapi
 
+
+with map--->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+	
+    <script>
+
+      function initMap() {
+		
+		handleFiles("c:\app\Projects\test.csv");
+	  
+        var myLatLng = {lat: -40.363, lng: 53.044};
+		var geocoder = new google.maps.Geocoder();
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 3
+        });
+
+		var marker = new google.maps.Marker({
+          position: geocodeAddress(geocoder, map),
+          map: map,
+          title: 'Hello World!'
+        });
+      }
+	  
+	function geocodeAddress(geocoder, resultsMap) {
+	  var address = "98122, Calfornia, CA 098121";
+	  geocoder.geocode({'address': address}, function(results, status) {
+		if (status === google.maps.GeocoderStatus.OK) {
+		  resultsMap.setCenter(results[0].geometry.location);
+		  var marker = new google.maps.Marker({
+			map: resultsMap,
+			title: 'Hello World!',
+			position: results[0].geometry.location
+		  });
+		} else {
+		  alert('Geocode was not successful for the following reason: ' + status);
+		}
+	  });
+	}
+	
+	
+	function handleFiles(files) {
+      // Check for the various File API support.
+      if (window.FileReader) {
+          // FileReader are supported.
+          getAsText(files[0]);
+      } else {
+          alert('FileReader are not supported in this browser.');
+      }
+    }
+
+    function getAsText(fileToRead) {
+      var reader = new FileReader();
+      // Read file into memory as UTF-8      
+      reader.readAsText(fileToRead);
+      // Handle errors load
+      reader.onload = loadHandler;
+      reader.onerror = errorHandler;
+    }
+
+    function loadHandler(event) {
+      var csv = event.target.result;
+      processData(csv);
+    }
+
+    function processData(csv) {
+        var allTextLines = csv.split(/\r\n|\n/);
+        var lines = [];
+        for (var i=0; i<allTextLines.length; i++) {
+            var data = allTextLines[i].split(';');
+                var tarr = [];
+				 for (var j=0; j<data.length; j++) {
+                    tarr.push(data[j]);
+                }
+                lines.push(tarr);
+        }
+      console.log(lines);
+    }
+
+    function errorHandler(evt) {
+      if(evt.target.error.name == "NotReadableError") {
+          alert("Canno't read file !");
+      }
+    }
+    </script>
+    <!--script async defer
+    src="https://maps.googleapis.com/maps/api/js?callback=initMap">
+    </script-->
+	<script type="text/javascript" src="readcsv.js"></script>
+	
+	 <input type="file" id="csvFileInput" onchange="handleFiles(this.files)"
+          accept=".csv">
+	 <div id="output">
+    </div>
+  </body>
+</html>
 
